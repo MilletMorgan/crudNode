@@ -1,6 +1,8 @@
-const express = require('express')
-const { connect } = require('mongoose')
+import express from 'express'
+import { connect } from 'mongoose'
+
 const router = require('./router/userRouter')
+
 const app = express()
 
 connect('mongodb://localhost:27017/crudNode', {
@@ -11,6 +13,7 @@ connect('mongodb://localhost:27017/crudNode', {
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.static('./images'))
+
 app.use('/users', router)
 
 app.listen(3000, () => {

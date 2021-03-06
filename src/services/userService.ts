@@ -4,14 +4,15 @@ import path from "path";
 
 const findOneUserByIdService = async (id: string) => {
 	return await findOneUserById(id)
-		.then((response) => response)
+		.then((response: Array<any>) => response)
 		.catch((error: Error) => console.error(error))
 }
 
 const findImageByFilenameService = async (filename: string) => {
-	fs.readFile('./src/images/' + filename, (err, data) => {
+	fs.readFile('./src/images/' + filename + '.png', (err, data) => {
 		if (err) console.error(err)
 
+		console.log(data)
 		return data
 	})
 }
@@ -33,19 +34,19 @@ const addOneUserService = async (user: Object, filepath: string, filename: strin
 	})
 
 	return await addOneUser(user)
-		.then((response: any) => response)
+		.then((response: number) => response)
 		.catch((error: Error) => console.error(error))
 }
 
 const editOneUserService = async (id: string, user: Object) => {
 	return await editOneUser(id, user)
-		.then((response: any) => response)
+		.then((response: number) => response)
 		.catch((error: Error) => console.error(error))
 }
 
 const deleteOneUserService = async (id: string) => {
 	return await deleteOneUser(id)
-		.then((response: any) => response)
+		.then((response: number) => response)
 		.catch((error: Error) => console.error(error))
 }
 

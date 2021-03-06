@@ -4,7 +4,7 @@ import * as fs from "fs";
 const User = require('../models/User')
 
 const findOneUserById = async (id: string) => {
-	return User.find({ _id: id }, (_err: Error, users: Schema) => users);
+	return User.find({ _id: id }, (err: Error, users: Schema) => users ? users : err);
 }
 
 const findAllUsers = async () => {
@@ -12,25 +12,21 @@ const findAllUsers = async () => {
 }
 
 const addOneUser = async (user: Object) => {
-	new User(user).save()
-		.then(() => console.log('user saved'))
-		.catch((err: Error) => console.error(err))
+	return new User(user).save()
+		.then(() => 201)
+		.catch(() => 500)
 }
 
 const editOneUser = async (id: string, user: Object) => {
-
-	User.updateOne({ _id: id }, user)
-		.then(() => {
-			console.log('user modified')
-		}).catch((err: Error) => {
-		console.error(err)
-	})
+	return User.updateOne({ _id: id }, user)
+		.then(() => 200)
+		.catch(() => 500)
 }
 
 const deleteOneUser = async (id: string) => {
-	User.deleteOne({ _id: id })
-		.then(() => console.log("L'utilisateur à bien été supprimé."))
-		.catch((err: Error) => console.error(err))
+	return User.deleteOne({ _id: id })
+		.then(() => 200)
+		.catch(() => 500)
 }
 
 export {
